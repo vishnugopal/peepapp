@@ -1,0 +1,50 @@
+/** reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin:0; padding:0; }
+table { border-collapse:collapse; border-spacing:0; }
+fieldset,img { border:0; }
+address,caption,cite,code,dfn,em,strong,th,var { font-style:normal; font-weight:normal; }
+ol,ul { list-style:none; }
+caption,th { text-align:left; }
+h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight:normal; }
+q:before,q:after { content:''; }
+abbr,acronym { border:0; }
+
+/** structure, try not to change this! */
+body { margin:0; padding:0; background-color: black; color: white; } 
+#wrap { width: 700px; margin-left: -350px; position: absolute; left: 50%; }
+#header { margin-top: 2em;  }
+#header h1 { display: inline;}
+#local_history { width: 40%; float: left; margin-right: 5%; }
+#status { width: 45%;}
+
+/** color, fonts, presentation */
+body { font-family: Helvectica, Arial, Verdana; line-height: 1.7em;}
+#header { color: #41147F; font-size: 200%; font-family: Times; font-variant: small-caps; }
+#header a { color: #41147F; text-decoration: none; }
+#header h1 { font-size: 250%; text-shadow: 1px 1px 1px grey; }
+
+/* If you want to make other-colored boxes, just specialize in the particular box, e.g. for #local_history. */
+.box { margin-top: 10px; border: 1px outset #41147F; padding: 10px; background-color: #41147F; color: #111; width: 680px; max-height: 100px; overflow: auto; }
+.box p em { background-color: #555500; padding: 5px;} 
+
+a { color: black; }
+p { margin-bottom: 5px; }
+#footer { margin-top: 20px; font-size: small; color: #111; }
+
+/* Modifications */
+	/* Changing colours */
+	.box { color: #ccc; }
+	.box p em { background-color: #999900; color: #111; } 
+	#footer {color: #222; }
+	a { color: white; }
+	a:hover{ color: grey; }
+	
+	/* Modifying the boxes */
+	.box { margin-top: 0px; border: 0px; -moz-border-radius: 10px; -webkit-border-radius: 10px; margin-top:10px; }
+	#local_history { margin-top: 10px; height: 100px; }
+	#status { margin-top: 18px; float: left; margin-top: 28px; }
+		
+	/* Adding some new elements */
+	.curve_top { margin: 0px; margin-top: 10px; padding: 0px; height: 8px; width: 700px; background: url('../images/curve_top.png') no-repeat; }
+	.curve_bottom { margin: 0px; padding: 0px; height: 8px; width: 700px; background: url('../images/curve_bottom.png') no-repeat; }
+/* End modifications */

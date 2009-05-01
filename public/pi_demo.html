@@ -1,0 +1,109 @@
+<!DOCTYPE html> <!-- Good soldiers use HTML 5 -->
+<html>
+<head>
+	<title>Peep / Demos / PI</title>
+	<meta name="author" content="Vishworks www.vish.in">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+  
+<div id="wrap">
+<div id="header">
+  <h1><a href="">PeeP</a></h1> / <a href="">Demos</a> / <a href="">PI</a>
+</div>
+<div id="remote_result" class="box">
+  <p><em>Current value of &#960; is</em> 3.14152 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731.</p>
+</div>
+<div id="local_result" class="box">
+  <p>No <em>local calculations</em> yet!</p>
+</div>
+
+<div id="wrap2">
+<div id="local_history" class="box">
+</div>
+<div id="status" class="box">
+  <p><em>4 other peeps</em> are helping us calculate &#960;.</p>
+  <p>You've been online for <em>2 hours!</em></p>
+</div>
+</div>
+<div style="clear:both"></div>
+<div id="current_calculation" class="box">
+  <p><em>Count Within</em> 11123123123 <em>Count Total</em> 123123123</p>
+</div>
+<div id="how" class="box">
+  <p><em>How?</em> We're using the <a href="">dartboard algorithm</a> to calculate &#960;.</p>
+</div>
+<div id="footer">
+  <p>Peep is &copy; Vishworks 2009.</p>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+
+function generate_random_x_and_y() {
+  return [Math.random(), Math.random()];
+}
+
+function is_within_circle(values) {
+  return ((Math.pow(values[0], 2) + Math.pow(values[1], 2)) < 1);
+}
+
+
+var count = 10000;
+var iterations = 0;
+var trials = 1;
+var count_within_circle = 0;
+var pi = 0;
+var dcurrent_calculation = document.getElementById("current_calculation");
+var dlocal_result = document.getElementById("local_result");
+var dlocal_history = document.getElementById("local_history");
+var lock = 0;
+var active = 1;
+var count_max = 1000000;
+
+
+function iteration_start() {
+  if(lock || !active) {
+    return;
+  }
+  lock = 1;
+  iterations++;
+  var i = 0;
+  for(i = 0; i <= count; i++) {
+    values = generate_random_x_and_y();
+    if(is_within_circle(values)) {
+      count_within_circle++;
+    }
+  }
+  lock = 0;
+  pi = 4 * (count_within_circle / (count * iterations));
+  dcurrent_calculation.innerHTML = "<p><em>Count Within</em> " + count_within_circle.toString() + 
+  ". <em>Count</em> " + (count * iterations).toString() + ".</p>";
+  if((count * iterations) >= count_max) {
+    dlocal_result.innerHTML = "<p><em>Last local calculation of &#960; was</em> " + pi.toString() + ".</p>";
+    dlocal_history.innerHTML = "<p><em>Trial " + trials.toString() + "</em> " + pi.toString() + ".</p>" + dlocal_history.innerHTML;
+    iterations = 0;
+    count_within_circle = 0;
+    trials++;
+  }
+  
+  ppi_start();
+}
+
+function ppi_start() {
+  setTimeout("iteration_start()", 20);
+}
+
+$(document).ready(function(){
+   ppi_start();
+ });
+
+
+</script>
+
+
+</body>
+</html>
