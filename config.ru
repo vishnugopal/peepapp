@@ -8,4 +8,4 @@ Sinatra::Application.set(
 )
 
 require 'peep.rb'
-run Sinatra.application
+run Sinatra::Application
