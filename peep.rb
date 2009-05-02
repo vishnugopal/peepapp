@@ -33,6 +33,6 @@ post '/master_receive' do
   data.to_json
 end
 
-get '/pi/?' do
+get '/?' do
   erb :demo_pi
 end
