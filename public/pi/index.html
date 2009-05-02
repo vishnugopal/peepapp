@@ -94,7 +94,7 @@ function iteration_start() {
 }
 
 function remote_post() {
-  new Ajax.Request("worker_send", { 
+  new Ajax.Request("/worker_send", { 
     method: 'post',  
     parameters: { 
       job: "peep_pi", 
