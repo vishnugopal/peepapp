@@ -2,9 +2,9 @@
 require 'rubygems'
 require 'sinatra'
 
-Sinatra::Application.default_options.merge!(
+Sinatra::Application.set(
   :run => false,
-  :env => :production
+  :environment => :production
 )
 
 require 'peep.rb'
