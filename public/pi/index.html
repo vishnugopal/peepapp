@@ -31,7 +31,7 @@
   <p><em>Count within circle</em> 0 of <em>Total</em> 0.</p>
 </div>
 <div id="how" class="box">
-  <p><em>How?</em> We're using the <a href="">dartboard algorithm</a> to calculate &#960;.</p>
+  <p><em>How?</em> We're using the <a href="http://bit.ly/hgIIC">dartboard algorithm</a> to calculate &#960;.</p>
 </div>
 <div id="footer">
   <p>Peep is &copy; Vishworks 2009.</p>
@@ -91,6 +91,7 @@ function iteration_start() {
     count_within_circle = 0;
     trials++;
   }
+  ppi_start();
 }
 
 function remote_post() {
@@ -121,12 +122,12 @@ function remote_fetch() {
 }
 
 function ppi_start() {
-  new PeriodicalExecuter(iteration_start, 0.2);
-  new PeriodicalExecuter(remote_fetch, 5);
+  setTimeout("iteration_start()", 20);
 }
 
 document.observe("dom:loaded", function() {
    ppi_start();
+   new PeriodicalExecuter(remote_fetch, 5);
 });
 
 
