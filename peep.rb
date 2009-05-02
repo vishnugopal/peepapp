@@ -32,3 +32,7 @@ post '/master_receive' do
   end
   data.to_json
 end
+
+get '/pi' do
+  erb :demo_pi
+end
