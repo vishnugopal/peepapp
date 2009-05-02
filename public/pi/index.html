@@ -3,8 +3,8 @@
 <head>
 	<title>Peep / Demos / PI</title>
 	<meta name="author" content="Vishworks www.vish.in">
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
-  <script type="text/javascript" src="js/jquery.js"></script>
+	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="/js/prototype.js"></script>
 </head>
 <body>
   
@@ -13,7 +13,7 @@
   <h1><a href="">PeeP</a></h1> / <a href="">Demos</a> / <a href="">PI</a>
 </div>
 <div id="remote_result" class="box">
-  <p><em>Current value of &#960; is</em> 3.14152 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731 31731.</p>
+  <p>Peep tells me that <em>the value of &#960; is</em> <small class="dim">(still talking...)</small></p>
 </div>
 <div id="local_result" class="box">
   <p>No <em>local calculations</em> yet!</p>
@@ -23,13 +23,12 @@
 <div id="local_history" class="box">
 </div>
 <div id="status" class="box">
-  <p><em>4 other peeps</em> are helping us calculate &#960;.</p>
-  <p>You've been online for <em>2 hours!</em></p>
+  <p><em>Peepstrength is</em> <small class="dim">(still talking...)</small></p>
 </div>
 </div>
 <div style="clear:both"></div>
 <div id="current_calculation" class="box">
-  <p><em>Count Within</em> 11123123123 <em>Count Total</em> 123123123</p>
+  <p><em>Count within circle</em> 0 of <em>Total</em> 0.</p>
 </div>
 <div id="how" class="box">
   <p><em>How?</em> We're using the <a href="">dartboard algorithm</a> to calculate &#960;.</p>
@@ -57,9 +56,11 @@ var iterations = 0;
 var trials = 1;
 var count_within_circle = 0;
 var pi = 0;
-var dcurrent_calculation = document.getElementById("current_calculation");
-var dlocal_result = document.getElementById("local_result");
-var dlocal_history = document.getElementById("local_history");
+var dremote_result = $("remote_result");
+var dcurrent_calculation = $("current_calculation");
+var dlocal_result = $("local_result");
+var dlocal_history = $("local_history");
+var dstatus = $('status');
 var lock = 0;
 var active = 1;
 var count_max = 1000000;
@@ -80,26 +81,53 @@ function iteration_start() {
   }
   lock = 0;
   pi = 4 * (count_within_circle / (count * iterations));
-  dcurrent_calculation.innerHTML = "<p><em>Count Within</em> " + count_within_circle.toString() + 
-  ". <em>Count</em> " + (count * iterations).toString() + ".</p>";
+  dcurrent_calculation.innerHTML = "<p><em>Count within circle</em> " + count_within_circle.toString() + 
+  " of <em>Total</em> " + (count * iterations).toString() + ".</p>";
   if((count * iterations) >= count_max) {
+    remote_post();
     dlocal_result.innerHTML = "<p><em>Last local calculation of &#960; was</em> " + pi.toString() + ".</p>";
     dlocal_history.innerHTML = "<p><em>Trial " + trials.toString() + "</em> " + pi.toString() + ".</p>" + dlocal_history.innerHTML;
     iterations = 0;
     count_within_circle = 0;
     trials++;
   }
-  
-  ppi_start();
+}
+
+function remote_post() {
+  new Ajax.Request("worker_send", { 
+    method: 'post',  
+    parameters: { 
+      job: "peep_pi", 
+      count: count * iterations, 
+      count_within_circle: count_within_circle
+    },
+    onSuccess: function(transport) {
+    }
+  });  
+}
+
+function remote_fetch() {
+  new Ajax.Request("/worker_receive", {
+    method: 'post',
+    parameters: {
+      job: "peep_pi"
+    }, 
+    onSuccess: function(transport) {
+      var data = transport.responseText.evalJSON();
+      dremote_result.innerHTML = "<p>Peep tells me that <em>the value of &#960; is</em> " + data.pi;
+      dstatus.innerHTML = "<p><em>Peepstrength is</em> " + data.peep_strength;
+    }
+  })
 }
 
 function ppi_start() {
-  setTimeout("iteration_start()", 20);
+  new PeriodicalExecuter(iteration_start, 0.2);
+  new PeriodicalExecuter(remote_fetch, 5);
 }
 
-$(document).ready(function(){
+document.observe("dom:loaded", function() {
    ppi_start();
- });
+});
 
 
 </script>

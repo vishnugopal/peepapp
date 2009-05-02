@@ -1,0 +1,17 @@
+
+Peepapp is a new kind of distributed computing platform. It makes map-reduce problems easy, with map and reduce elements being performed by a connected "master" node, and calculations performed by anybody with a browser.
+
+Use:
+
+* Ruby EE
+* Starling, memcached & memcache-client
+* No DB (wowee!)
+* Nginx
+
+Nginx -> passenger_nginx_module -> rack -> sinatra
+
+A very simple sinatra app will do. Sinatra seems apt.
+
+Demos:
+
+* See /pi/index.html

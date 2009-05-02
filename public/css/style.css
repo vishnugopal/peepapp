@@ -27,6 +27,8 @@ body { font-family: Helvectica, Arial, Verdana; line-height: 1.7em;}
 .box { margin-top: 10px; border: 1px outset #41147F; padding: 10px; background-color: #41147F; color: #111; width: 680px; max-height: 100px; overflow: auto; }
 .box p em { background-color: #555500; padding: 5px;} 
 
+.dim { color: black; }
+
 a { color: black; }
 p { margin-bottom: 5px; }
 #footer { margin-top: 20px; font-size: small; color: #111; }
