@@ -1,4 +1,4 @@
 
 git push deploy master
-ssh peepapp@peepapp "cd deploy && git reset --hard HEAD"
-ssh peepapp@peepapp "cd deploy && touch tmp/restart.txt"
+ssh peepapp@vishworks "cd deploy && git reset --hard HEAD"
+ssh peepapp@vishworks "cd deploy && touch tmp/restart.txt"
